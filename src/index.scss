@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  background-color: #ffdf8c;
+  font-family: "Nunito", sans-serif;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style-type: none;
+}
+main {
+  margin-top: 40px;
+}
+.container {
+  max-width: 1340px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
