@@ -13,7 +13,6 @@ const categories = [
   "Закрытые",
 ];
 
-//sortingValues.map(({ value, index }) => console.log(index, value));
 const CategoriesList = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const onClickCategory = (index) => {
@@ -34,17 +33,40 @@ const CategoriesList = () => {
   );
 };
 const Sort = () => {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(0);
+  const handleChoice = (i) => {
+    setSelected(i);
+    setOpen(false);
+  };
   return (
-    <div className={styles.sort}>
-      <img src={arrow} alt="" />
-      <p>Сортировать по:</p>
-      <select className={styles.select}>
-        {sortingValues.map(({ value, title }) => (
-          <option key={value} value={value}>
-            <span>{title}</span>
-          </option>
-        ))}
-      </select>
+    <div className={styles.sort_wrapper}>
+      <div className={styles.sort}>
+        <img src={arrow} alt="" />
+        <p>Сортировать по:</p>
+        <span onClick={() => setOpen(!open)} className={styles.choice}>
+          {sortingValues[selected].title}
+        </span>
+      </div>
+      {open && (
+        <div className={styles.sort_list}>
+          <ul>
+            {sortingValues.map((el, i) => (
+              <li
+                key={i}
+                onClick={() => handleChoice(i)}
+                className={
+                  selected === i
+                    ? styles.active_sort + " " + styles.sort__list_item
+                    : styles.sort__list_item
+                }
+              >
+                {el.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

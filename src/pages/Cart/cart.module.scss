@@ -1,0 +1,36 @@
+.wrapper {
+  padding: 44px 0 164px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26.17px;
+  color: #777777;
+}
+
+.image {
+  margin: 48px auto 0;
+  height: 255px;
+  width: 300px;
+}
+
+.button {
+  margin: 74px auto 0;
+  background-color: #282828;
+  color: #fff;
+  width: 210px;
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  vertical-align: middle;
+}
