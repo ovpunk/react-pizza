@@ -3,6 +3,8 @@ import styles from "./products.module.scss";
 import arrow from "../../assets/icons/arrow.svg";
 import { sortingValues } from "../../constants";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCategory, changeSorting } from "../../redux/slices/filterSlice";
 
 const categories = [
   "Все",
@@ -14,17 +16,19 @@ const categories = [
 ];
 
 const CategoriesList = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const dispatch = useDispatch();
   const onClickCategory = (index) => {
-    setActiveIndex(index);
+    dispatch(changeCategory(index));
   };
+  const selectedCategory = useSelector((state) => state.filter.category);
+
   return (
     <ul className={styles.categories}>
       {categories.map((value, i) => (
         <li
           onClick={() => onClickCategory(i)}
           key={i}
-          className={activeIndex === i ? styles.active : styles.category}
+          className={selectedCategory === i ? styles.active : styles.category}
         >
           {value}
         </li>
@@ -33,19 +37,25 @@ const CategoriesList = () => {
   );
 };
 const Sort = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(0);
+
   const handleChoice = (i) => {
-    setSelected(i);
+    const sortingValue = sortingValues[i];
+
+    dispatch(changeSorting(sortingValue));
     setOpen(false);
   };
+
+  const selected = useSelector((state) => state.filter.sorting);
+
   return (
     <div className={styles.sort_wrapper}>
       <div className={styles.sort}>
         <img src={arrow} alt="" />
         <p>Сортировать по:</p>
         <span onClick={() => setOpen(!open)} className={styles.choice}>
-          {sortingValues[selected].title}
+          {selected.title}
         </span>
       </div>
       {open && (
@@ -56,7 +66,7 @@ const Sort = () => {
                 key={i}
                 onClick={() => handleChoice(i)}
                 className={
-                  selected === i
+                  selected.index === i
                     ? styles.active_sort + " " + styles.sort__list_item
                     : styles.sort__list_item
                 }
