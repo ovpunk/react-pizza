@@ -7,26 +7,35 @@ import { Pagination } from "../Pagination/index";
 import { useSelector } from "react-redux";
 
 export const Pizzas = () => {
-  const sorting = useSelector((state) => state.filter.sorting.value);
+  const { sorting, category, pagination, search } = useSelector(
+    (state) => state.filter
+  );
 
   const { data, error, isError, isLoading } = useQuery({
-    queryKey: ["getCardProducts", sorting],
+    queryKey: ["getCardProducts", sorting, category, pagination, search],
     queryFn: async () => {
       window.scrollTo(0, 0);
-      const res = await productsFetch(sorting);
-      const responce = await res.json();
 
+      const res = await productsFetch(sorting, category, pagination);
+      const responce = await res.json();
+      if (!!search) {
+        return responce.filter((el) =>
+          el.title.toLowerCase().includes(search.toLowerCase())
+        );
+      }
       return responce;
     },
   });
   if (isError) return error;
 
+  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
+  //const allPizzas = data.map((pizza)=> <CurrentPizza key={pizza.id}/> )
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Все пиццы</h2>
       <div className={styles.cards}>
         {isLoading
-          ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
+          ? skeletons
           : data.map((pizza) => <CurrentPizza key={pizza.id} pizza={pizza} />)}
       </div>
       <Pagination />
