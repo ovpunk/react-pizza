@@ -3,10 +3,14 @@ import mini_cart from "../../assets/icons/mini_cart.svg";
 import trash_cart from "../../assets/icons/trash-cart.svg";
 import { PizzaInCart } from "../../components/PizzaInCart";
 import { useSelector } from "react-redux";
+import { EmptyCart } from "./emptyCart";
 
 export const Cart = () => {
   const { pizzas, totalPrice } = useSelector((state) => state.cart);
   const totalCount = pizzas.reduce((sum, obj) => sum + obj.count, 0);
+  if (!pizzas.length) {
+    return <EmptyCart />;
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.cart_top}>

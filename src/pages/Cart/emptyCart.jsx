@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import cart from "../../assets/icons/empty-basket.svg";
 import styles from "./cart.module.scss";
-export const Cart = () => {
+export const EmptyCart = () => {
   return (
     <div className={styles.empty_wrapper}>
       <h2 className={styles.title}>Корзина пустая 😕</h2>
