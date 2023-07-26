@@ -1,0 +1,57 @@
+.pizza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0;
+}
+.left {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 388px;
+}
+.image {
+  width: 80px;
+  height: 80px;
+}
+
+.tittle {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 400;
+  color: #8d8d8d;
+  margin: 0;
+}
+
+.count {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+
+  b {
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.buttons {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.line {
+  max-width: 822px;
+  border: 1px solid #f6f6f6;
+  margin: 0 auto;
+}

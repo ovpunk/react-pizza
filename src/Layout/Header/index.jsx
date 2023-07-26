@@ -3,8 +3,11 @@ import logo_img from "../../assets/icons/pizza-logo.svg";
 import cart_img from "../../assets/icons/cart.svg";
 import { Link } from "react-router-dom";
 import { Search } from "../../components/Search";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
+  const { pizzas, totalPrice } = useSelector((state) => state.cart);
+  const totalCount = pizzas.reduce((sum, obj) => sum + obj.count, 0);
   return (
     <>
       <header className={styles.header}>
@@ -20,11 +23,11 @@ export const Header = () => {
         <Search />
         <div className={styles.header__cart}>
           <Link to="/cart" className={styles.button__cart}>
-            <span>500 ₽</span>
+            <span>{totalPrice ? totalPrice : 0} ₽</span>
             <div className={styles.button__delimiter}></div>
             <div>
               <img src={cart_img} alt="" className={styles.cart__img} />
-              <span>4</span>
+              <span>{totalCount}</span>
             </div>
           </Link>
         </div>

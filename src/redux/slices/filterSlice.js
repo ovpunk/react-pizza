@@ -19,6 +19,7 @@ export const filterSlice = createSlice({
     },
   },
 });
+
 export const {
   changeCategory,
   changeSorting,
