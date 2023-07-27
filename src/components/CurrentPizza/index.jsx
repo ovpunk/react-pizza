@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./currentpizza.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addPizzas, setCount } from "../../redux/slices/cartSlice";
+import { addPizzas } from "../../redux/slices/cartSlice";
 
 export const CurrentPizza = ({ pizza }) => {
   const typeNames = ["тонкое", "традиционное"];
