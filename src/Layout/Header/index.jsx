@@ -11,7 +11,7 @@ export const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           <img src={logo_img} alt="Pizza" className={styles.logo_img} />
           <div className={styles.logo_text}>
             <h1 className={styles.logo_title}>REACT PIZZA</h1>
@@ -19,7 +19,7 @@ export const Header = () => {
               самая вкусная пицца во вселенной
             </p>
           </div>
-        </div>
+        </Link>
         <Search />
         <div className={styles.header__cart}>
           <Link to="/cart" className={styles.button__cart}>
