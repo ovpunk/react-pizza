@@ -8,24 +8,24 @@ import {
   decrementPizza,
   deletePizza,
 } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
 
 export const PizzaInCart = () => {
-  const pizzas = useSelector((state) => state.cart.pizzas);
+  const pizzas = useSelector((state: RootState) => state.cart.pizzas);
 
   const dispatch = useDispatch();
 
-  const handleDecrement = (id) => {
+  const handleDecrement = (id: string) => {
     dispatch(decrementPizza(id));
   };
 
-  const handleIncrement = (id) => {
+  const handleIncrement = (id: string) => {
     dispatch(addPizzas({ id }));
   };
 
-  const clickDelete = (id) => {
+  const clickDelete = (id: string) => {
     dispatch(deletePizza(id));
   };
-
   return (
     <ul>
       {pizzas.map((pizza) => (
@@ -43,19 +43,32 @@ export const PizzaInCart = () => {
               </div>
             </div>
             <div className={styles.count}>
-              <img
-                src={decrement}
-                alt="Удалить"
-                className={styles.buttons}
+              <button
+                className={styles.btn_wrapper}
+                disabled={pizza.count === 1}
                 onClick={() => handleDecrement(pizza.id)}
-              />
+              >
+                <img
+                  src={decrement}
+                  alt="Удалить"
+                  className={
+                    pizza.count === 1
+                      ? styles.buttons + " " + styles.not_active
+                      : styles.buttons
+                  }
+                />
+              </button>
               <b>{pizza.count}</b>
-              <img
-                src={increment}
-                alt="Добавить"
-                className={styles.buttons}
+              <button
+                className={styles.btn_wrapper}
                 onClick={() => handleIncrement(pizza.id)}
-              />
+              >
+                <img
+                  src={increment}
+                  alt="Добавить"
+                  className={styles.buttons}
+                />
+              </button>
             </div>
             <p className={styles.price}>{pizza.price * pizza.count} ₽</p>
 

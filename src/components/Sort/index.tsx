@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sorting } from "../../constants";
 import { changeSorting } from "../../redux/slices/filterSlice";
 import arrow from "../../assets/icons/arrow.svg";
-
 import styles from "./sort.module.scss";
 import { useSearchParams } from "react-router-dom";
+import { RootState } from "../../redux/store";
 
-export const Sort = () => {
+export const Sort: FC = () => {
   const isMounting = useRef(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Sort = () => {
   ///////////////////////////////
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
@@ -29,7 +29,7 @@ export const Sort = () => {
     };
   }, []);
 
-  const handleClick = (i) => {
+  const handleClick = (i: number) => {
     const newSorting = sorting[i];
     const value = sorting[i].value;
     dispatch(changeSorting(newSorting));
@@ -43,7 +43,7 @@ export const Sort = () => {
     }
   };
 
-  const selected = useSelector((state) => state.filter.sorting);
+  const selected = useSelector((state: RootState) => state.filter.sorting);
 
   return (
     <div className={styles.sort_wrapper} ref={sortRef}>

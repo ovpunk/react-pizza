@@ -50,6 +50,15 @@
   cursor: pointer;
 }
 
+.btn_wrapper {
+  border: none;
+  background-color: inherit;
+}
+
+.not_active {
+  opacity: 0.4;
+}
+
 .line {
   max-width: 822px;
   border: 1px solid #f6f6f6;

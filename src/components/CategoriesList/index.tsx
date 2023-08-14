@@ -4,24 +4,29 @@ import { changeCategory } from "../../redux/slices/filterSlice";
 import styles from "./categorieslist.module.scss";
 import { useSearchParams } from "react-router-dom";
 
-import { useState } from "react";
+import { FC, memo, useState } from "react";
 
-const categories = [
+type CategoriesType = {
+  value: string;
+  title: string;
+  index: number;
+};
+
+const categories: CategoriesType[] = [
   { value: "all", title: "Все", index: 0 },
   { value: "meat", title: "Мясные", index: 1 },
   { value: "vegetarian", title: "Вегетарианская", index: 2 },
   { value: "grill", title: "Гриль", index: 3 },
   { value: "spicy", title: "Острые", index: 4 },
-  { value: "closed", title: "Закрытые", index: 5 },
 ];
 
-export const CategoriesList = () => {
+export const CategoriesList: FC = memo(() => {
   const [, setSearchParams] = useSearchParams();
 
   const [selected, setSelected] = useState(0);
   const dispatch = useDispatch();
 
-  const handleClick = (i) => {
+  const handleClick = (i: number) => {
     const value = categories[i].value;
     dispatch(changeCategory(categories[i]));
     setSelected(i);
@@ -51,4 +56,4 @@ export const CategoriesList = () => {
       ))}
     </ul>
   );
-};
+});

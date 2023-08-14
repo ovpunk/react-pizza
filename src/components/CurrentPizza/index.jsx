@@ -1,15 +1,26 @@
-import { useState } from "react";
 import styles from "./currentpizza.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addPizzas } from "../../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
+
+import { typeNames } from "../../constants";
+import { useState } from "react";
+
+//type PizzaType = {
+//  id: string;
+//  title: string;
+//  imageUrl: string;
+//  price: number;
+//  types: number[];
+//  sizes: number[];
+//};
 
 export const CurrentPizza = ({ pizza }) => {
-  const typeNames = ["тонкое", "традиционное"];
-
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(
     pizza.types.length < 2 && pizza.types.includes(1) ? 1 : 0
   );
+
   const [added, setAdded] = useState(false);
   const dispatch = useDispatch();
   const clickAdd = () => {
@@ -31,8 +42,14 @@ export const CurrentPizza = ({ pizza }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.pizza_card}>
-        <img src={pizza.imageUrl} alt={pizza.title} className={styles.image} />
-        <b className={styles.title}>{pizza.title}</b>
+        <Link to={`pizzas/${pizza.id}`} className={styles.link}>
+          <img
+            src={pizza.imageUrl}
+            alt={pizza.title}
+            className={styles.image}
+          />
+          <b className={styles.title}>{pizza.title}</b>
+        </Link>
         <div className={styles.settings}>
           <ul className={styles.types}>
             {pizza.types.map((typeId) => (
@@ -77,7 +94,7 @@ export const CurrentPizza = ({ pizza }) => {
               <path d="M18,10h-4V6c0-1.104-0.896-2-2-2s-2,0.896-2,2l0.071,4H6c-1.104,0-2,0.896-2,2s0.896,2,2,2l4.071-0.071L10,18  c0,1.104,0.896,2,2,2s2-0.896,2-2v-4.071L18,14c1.104,0,2-0.896,2-2S19.104,10,18,10z" />
             </svg>
             Добавить
-            {added && <span>{addedCount.count}</span>}
+            {added && <span>{addedCount && addedCount.count}</span>}
           </button>
         </div>
       </div>

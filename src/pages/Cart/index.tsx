@@ -2,15 +2,22 @@ import styles from "./cart.module.scss";
 import mini_cart from "../../assets/icons/mini_cart.svg";
 import trash_cart from "../../assets/icons/trash-cart.svg";
 import { PizzaInCart } from "../../components/PizzaInCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { EmptyCart } from "./emptyCart";
+import { clearCart } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
 
 export const Cart = () => {
-  const { pizzas, totalPrice } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { pizzas, totalPrice } = useSelector((state: RootState) => state.cart);
   const totalCount = pizzas.reduce((sum, obj) => sum + obj.count, 0);
   if (!pizzas.length) {
     return <EmptyCart />;
   }
+  const handleClear = () => {
+    dispatch(clearCart());
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.cart_top}>
@@ -18,7 +25,7 @@ export const Cart = () => {
           <img src={mini_cart} alt="" />
           <h2>Корзина</h2>
         </div>
-        <div className={styles.clear_cart}>
+        <div className={styles.clear_cart} onClick={handleClear}>
           <img src={trash_cart} alt="" />
           <p>Очистить корзину</p>
         </div>
@@ -31,7 +38,7 @@ export const Cart = () => {
           </p>
           <p>
             Сумма заказа:
-            <span className={styles.total_price}>{totalPrice} ₽</span>
+            <span className={styles.total_price}> {totalPrice} ₽</span>
           </p>
         </div>
         <div className={styles.buttons}>
